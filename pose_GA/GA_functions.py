@@ -91,4 +91,25 @@ def crossover_pose(parent1, parent2, swap_prob=0.5):
 
 
 def mutate_pose(pose, mutation_rate=0.05, mutation_strength=0.1):
-    pass
+    new_pose = pose.copy()
+
+    for i in range(len(new_pose)):
+        if rd.random() < mutation_rate:
+            # Determine which joint type (coxa, femur, tibia)
+            joint_type = i % 3
+            if joint_type == 0:  # Coxa
+                low, high = -pi / 4, pi / 4
+            elif joint_type == 1:  # Femur
+                low, high = -pi / 2, 0
+            else:  # Tibia
+                low, high = -pi / 4, 0
+
+            new_pose[i] += rd.uniform(-mutation_strength, mutation_strength)
+
+            # Clamp to valid range
+            if new_pose[i] < low:
+                new_pose[i] = low
+            elif new_pose[i] > high:
+                new_pose[i] = high
+
+    return new_pose
