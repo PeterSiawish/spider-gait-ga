@@ -20,7 +20,38 @@ def initialize_pose():
 
 
 def fitness_pose(pose):
-    pass
+    coxa_angles = [pose[i] for i in range(0, len(pose), 3)]
+    femur_angles = [pose[i] for i in range(1, len(pose), 3)]
+    tibia_angles = [pose[i] for i in range(2, len(pose), 3)]
+
+    total_penalty = 0
+
+    ideal_coxa_mag = pi / 12  # Aim for about 15 degrees of outward rotation
+
+    for angle in coxa_angles:
+        # Penalize deviation from the ideal magnitude
+        deviation = fabs(fabs(angle) - ideal_coxa_mag)
+        total_penalty += (deviation * 1.5) ** 2
+
+    for femur in femur_angles:
+        # femur near 0 (up) is bad, near -π/4 to -π/2 (down) is good
+        if femur > -pi / 4:
+            total_penalty += (femur + pi / 4) ** 2
+
+    for tibia in tibia_angles:
+        # tibia near 0 (up) is bad, near -π/8 to -π/4 (down) is good
+        if tibia > -pi / 8:
+            total_penalty += (tibia + pi / 8) ** 2
+
+    if total_penalty < 1e-20:
+        total_penalty = 1e-20
+
+    fitness = 1.0 / (total_penalty**0.5)  # slower growth
+
+    if fitness > 1000:
+        fitness = 1000.0
+
+    return fitness
 
 
 def tournament_selection_pose(population, fitness_scores, tournament_size=2):
