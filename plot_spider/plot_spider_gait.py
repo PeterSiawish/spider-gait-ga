@@ -133,7 +133,8 @@ def animate_spider_gait(gait, delay=0.03):
 if __name__ == "__main__":
 
     file_name = "final_gait.npy"
+    pose_path = f"Result Poses/{file_name}"
 
-    gait = np.load(f"Result Poses/{file_name}")
+    gait = np.load(pose_path)
 
     animate_spider_gait(gait, delay=0.4)  # Adjust delay for animation speed
