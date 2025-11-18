@@ -63,7 +63,31 @@ def tournament_selection_pose(population, fitness_scores, tournament_size=2):
 
 
 def crossover_pose(parent1, parent2, swap_prob=0.5):
-    pass
+    child1_left, child2_left = [], []
+    child1_right, child2_right = [], []
+
+    # ---- Left legs (L1..L4) ----
+    for i in range(0, 12, 3):
+        if rd.random() < swap_prob:
+            child1_left.extend(parent1[i : i + 3])
+            child2_left.extend(parent2[i : i + 3])
+        else:
+            child1_left.extend(parent2[i : i + 3])
+            child2_left.extend(parent1[i : i + 3])
+
+    # ---- Right legs (R4..R1) ----
+    for i in range(12, 24, 3):
+        if rd.random() < swap_prob:
+            child1_right.extend(parent1[i : i + 3])
+            child2_right.extend(parent2[i : i + 3])
+        else:
+            child1_right.extend(parent2[i : i + 3])
+            child2_right.extend(parent1[i : i + 3])
+
+    child1 = child1_left + child1_right
+    child2 = child2_left + child2_right
+
+    return child1, child2
 
 
 def mutate_pose(pose, mutation_rate=0.05, mutation_strength=0.1):
