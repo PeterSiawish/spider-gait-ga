@@ -1,5 +1,4 @@
 import numpy as np
-import os, sys
 import matplotlib.pyplot as plt
 
 
@@ -133,18 +132,8 @@ def animate_spider_gait(gait, delay=0.03):
 
 if __name__ == "__main__":
 
-    # Get the folder where this script resides
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    npy_files = [f for f in os.listdir(script_dir) if f.endswith(".npy")]
+    file_name = "final_gait.npy"
 
-    if not npy_files:
-        sys.exit("❌ No .npy file found in the current directory.")
-
-    gait_file = npy_files[0]
-
-    gait_path = os.path.join(script_dir, gait_file)
-
-    gait = np.load(gait_path)
-    print(gait[0])
+    gait = np.load(f"Result Poses/{file_name}")
 
     animate_spider_gait(gait, delay=0.4)  # Adjust delay for animation speed

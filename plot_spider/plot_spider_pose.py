@@ -207,17 +207,10 @@ if __name__ == "__main__":
         0,
     ]
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    npy_files = [f for f in os.listdir(script_dir) if f.endswith(".npy")]
-
-    if not npy_files:
-        sys.exit("❌ No .npy file found in the current directory.")
-
-    pose_file = npy_files[0]
-
-    pose_path = os.path.join(script_dir, pose_file)
+    file_name = "final_gait.npy"
+    pose_path = f"Result Poses/{file_name}"
 
     data = np.load(pose_path)
 
     for i in range(100):
-        plot_spider_pose(data[0], forward_leg_kinematics2)
+        plot_spider_pose(data[i], forward_leg_kinematics2)
