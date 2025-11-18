@@ -55,8 +55,11 @@ def fitness_pose(pose):
 
 
 def tournament_selection_pose(population, fitness_scores, tournament_size=2):
+    selected_indices = rd.sample(range(len(population)), tournament_size)
 
-    pass
+    best_index = max(selected_indices, key=lambda i: fitness_scores[i])
+
+    return population[best_index]
 
 
 def crossover_pose(parent1, parent2, swap_prob=0.5):
