@@ -3,7 +3,7 @@ from GA_functions import fitness_pose
 
 # Once we obtain a list of 100,200 poses, we need to extract the 300 most suitable poses in order to produce a gait.
 
-file_name = "list_of_poses #4 (best).npy"
+file_name = "Result Poses/list_of_poses #4 (best).npy"
 list_of_poses = np.load(file_name)
 
 print(f"List of poses shape: {len(list_of_poses)} X {len(list_of_poses[0])}")
